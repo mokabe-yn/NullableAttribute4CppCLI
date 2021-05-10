@@ -1,9 +1,14 @@
-﻿# このファイルより上位の.editorconfigを探さない
+# このファイルより上位の.editorconfigを探さない
 root = true
 
-# source code, Readme
-# .txt .c .h .cc .cpp .cxx .hpp .cs .xaml ...
 [*]
+charset = utf-8
+end_of_line = crlf
+
+
+# source code
+# .txt .c .h .cc .cpp .cxx .hpp .cs .xaml ...
+[*.{c,h,cc,cpp,cxx,cs,xaml}]
 # VSのエディタがUTF8として開いていても、
 #   コンパイラがUTF8として開いてくれるとは限らない。
 #   BOMなしUTF8コードの場合、大抵SJIS(cp932)扱いでコンパイルされる。
@@ -20,8 +25,4 @@ trim_trailing_whitespace = true
 [*.{csproj,vcxproj,vcxproj.filter,sln}]
 charset = utf-8
 
-# xml config
-# xmlは utf8 or utf16 であることが前提のためBOM不要
-[*.{xml,config}]
-charset = utf-8
-indent_size = 2
+
