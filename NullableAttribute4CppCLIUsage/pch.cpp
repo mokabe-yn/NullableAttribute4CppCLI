@@ -3,3 +3,5 @@
 #include "pch.h"
 
 // プリコンパイル済みヘッダーを使用している場合、コンパイルを成功させるにはこのソース ファイルが必要です。
+
+#include "NullableAttribute4CppCLI.h"

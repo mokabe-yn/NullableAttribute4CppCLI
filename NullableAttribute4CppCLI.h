@@ -1,6 +1,4 @@
 ﻿#pragma once
-// This code is referenced https://github.com/epsitec/nullable-type-reflection
-
 
 namespace System {
 namespace Runtime {
