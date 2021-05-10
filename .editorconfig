@@ -1,0 +1,27 @@
+﻿# このファイルより上位の.editorconfigを探さない
+root = true
+
+# source code, Readme
+# .txt .c .h .cc .cpp .cxx .hpp .cs .xaml ...
+[*]
+# VSのエディタがUTF8として開いていても、
+#   コンパイラがUTF8として開いてくれるとは限らない。
+#   BOMなしUTF8コードの場合、大抵SJIS(cp932)扱いでコンパイルされる。
+#   コンパイラにUTF8を強制させるためにBOMを付ける。
+charset = utf-8-bom
+
+end_of_line = crlf
+insert_final_newline = true
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true
+
+# プロジェクトファイルには日本語文字が入ってこないだろうという前提
+[*.{csproj,vcxproj,vcxproj.filter,sln}]
+charset = utf-8
+
+# xml config
+# xmlは utf8 or utf16 であることが前提のためBOM不要
+[*.{xml,config}]
+charset = utf-8
+indent_size = 2
