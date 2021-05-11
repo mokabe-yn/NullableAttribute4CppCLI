@@ -8,7 +8,13 @@ namespace NullableAttribute4CppCLIProbe {
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
 
-            Probe<NullableAttribute4CppCLIUsage.Class>();
+            foreach(var kv in Probe<NullableAttribute4CppCLIUsage.Class>()) {
+                Console.WriteLine(kv.Key.Name);
+                if (kv.Value is not null) {
+                    Console.WriteLine(kv.Value);
+                }
+            }
+            
         }
 
 
