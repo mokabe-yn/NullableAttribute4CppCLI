@@ -16,10 +16,11 @@ namespace CompilerServices {
 /// C#コンパイラから参照されたくないのでアクセスレベルをinternalにしている。
 /// </para>
 /// </summary>
-public ref class NullableAttribute : Attribute {
+ref class NullableAttribute : Attribute {
 private:
     using byte = unsigned __int8;
     using arraybyte = array<byte>^;
+    using listbyte = System::Collections::Generic::List<byte>^;
     byte _Mode;
     arraybyte _Modes = nullptr;
 
@@ -42,8 +43,19 @@ public:
         Mode = mode;
     }
 
-    NullableAttribute(arraybyte modes) {
-        Modes = modes;
+    template<class... Bytes>
+    NullableAttribute(Bytes... modes) {
+        Modes = ToManagedArray(gcnew System::Collections::Generic::List<byte>, mode...);
+    }
+
+    // Modesの生成用 Attributeを使うたびにgcnewを書かせたくないのでtemplate実装
+    template<class... Bytes>
+    arraybyte ToManagedArray(listbyte list, byte mode, Bytes... modes) {
+        list->Add(mode);
+        return ToManagedArray(list, modes...);
+    }
+    arraybyte ToManagedArray(listbyte list) {
+        return list->ToArray();
     }
 
     /// <summary>For Debug</summary>
