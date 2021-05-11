@@ -32,18 +32,5 @@ namespace NullableAttribute4CppCLIProbe {
             }
             return new(members.Select(m => KeyValuePair.Create(m, GetNullableAttribute(m))));
         }
-
-
-        class NullableMode {
-            public byte Mode { get; init; }
-            public byte[]? Modes { get; init; }
-            public override string ToString() {
-                if(Modes is null) {
-                    return $"{Mode}";
-                } else {
-                    return $"({Mode}) {string.Join(", ", Modes)}";
-                }
-            }
-        }
     }
 }

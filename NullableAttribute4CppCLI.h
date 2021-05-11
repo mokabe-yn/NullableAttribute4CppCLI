@@ -20,7 +20,6 @@ public ref class NullableAttribute : Attribute {
 private:
     using byte = unsigned __int8;
     using arraybyte = array<byte>^;
-
     byte _Mode;
     arraybyte _Modes = nullptr;
 
@@ -47,7 +46,15 @@ public:
         Modes = modes;
     }
 
-    //public NullableAttribute(params byte[] modes) => this.Modes = modes;
+    /// <summary>For Debug</summary>
+    System::String^ ToString() override {
+        if (Modes == nullptr) {
+            return System::String::Format("{0}", Mode);
+        }
+        else {
+            return System::String::Format("({0}) ", Mode, System::String::Join(", ", Modes));
+        }
+    }
 
 };
 }
