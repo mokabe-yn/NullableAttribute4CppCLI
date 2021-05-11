@@ -15,7 +15,6 @@ namespace NullableAttribute4CppCLIProbe {
         static Dictionary<MemberInfo, object?> Probe<TargetType>(string? membername = null) {
             static object? GetNullableAttribute(MemberInfo member) {
                 var atts = member.GetCustomAttributes(true);
-                var att = atts[1];
                 return atts.FirstOrDefault(a => a.GetType().FullName == "System.Runtime.CompilerServices.NullableAttribute");
             }
 
