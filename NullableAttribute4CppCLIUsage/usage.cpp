@@ -1,6 +1,9 @@
 ﻿#include "pch.h"
+#include "NullableAttribute4CppCLI.h"
 
 namespace NullableAttribute4CppCLIUsage {
+
+using NullableAttribute = System::Runtime::CompilerServices::NullableAttribute;
 
 // Nullableアノテーションを付加されるかの確認用
 // 実際のクラスとしては機能しない
@@ -8,6 +11,7 @@ public ref class Class {
     using value = int;
     using ref = System::Object^;
 public:
+    [Nullable(2)]
     property System::String^ Nullable {
         System::String^ get() { return nullptr; }
     }

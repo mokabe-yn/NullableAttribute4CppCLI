@@ -8,7 +8,7 @@ namespace NullableAttribute4CppCLIProbe {
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
 
-            Probe<object>();
+            Probe<NullableAttribute4CppCLIUsage.Class>();
         }
 
 

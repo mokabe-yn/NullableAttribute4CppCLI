@@ -45,7 +45,7 @@ public:
 
     template<class... Bytes>
     NullableAttribute(Bytes... modes) {
-        Modes = ToManagedArray(gcnew System::Collections::Generic::List<byte>, mode...);
+        Modes = ToManagedArray(gcnew System::Collections::Generic::List<byte>, modes...);
     }
 
     // Modesの生成用 Attributeを使うたびにgcnewを書かせたくないのでtemplate実装
