@@ -11,3 +11,5 @@ C#8 で導入された Null非許容型の機能をC++/CLIで作成したプロ�
 [C#向けのNullableAttribute](https://github.com/epsitec/nullable-type-reflection)を
 解説しているリポジトリを参考にしてる。
 便利に使えそうだったのでC++/CLI向けに1から書き直した。
+
+(RoslynのNullableAttribute実装)[https://github.com/dotnet/roslyn/blob/main/docs/features/nullable-metadata.md]

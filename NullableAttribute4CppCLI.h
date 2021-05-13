@@ -16,38 +16,30 @@ namespace CompilerServices {
 /// C#コンパイラから参照されたくないのでアクセスレベルをinternalにしている。
 /// </para>
 /// </summary>
-ref class NullableAttribute : Attribute {
+ref class NullableAttribute sealed : Attribute {
 private:
     using byte = unsigned __int8;
     using arraybyte = array<byte>^;
     using listbyte = System::Collections::Generic::List<byte>^;
-    byte _Mode;
-    arraybyte _Modes = nullptr;
 
 public:
-    property byte Mode {
-public:
-    byte get() { return _Mode; }
-private:
-    void set(byte value) { _Mode = value; }
-    }
-    property arraybyte Modes {
-public:
-    arraybyte get() { return _Modes; }
-private:
-    void set(arraybyte value) { _Modes = value; }
-    }
+    const arraybyte NullableFlags;
+    NullableAttribute(byte flag) :
+        NullableFlags(gcnew array<byte>{flag}) { }
 
-public:
-    NullableAttribute(byte mode) {
-        Mode = mode;
-    }
+    // C#コンパイラからのアクセス用
+    NullableAttribute(arraybyte flags) :
+        NullableFlags(flags) {}
 
+
+internal:
+    // C++コンパイラからのアクセス用
     template<class... Bytes>
-    NullableAttribute(Bytes... modes) {
-        Modes = ToManagedArray(gcnew System::Collections::Generic::List<byte>, modes...);
+    NullableAttribute(Bytes... flags) {
+        NullableFlags = ToManagedArray(gcnew System::Collections::Generic::List<byte>, modes...);
     }
 
+private:
     // Modesの生成用 Attributeを使うたびにgcnewを書かせたくないのでtemplate実装
     template<class... Bytes>
     arraybyte ToManagedArray(listbyte list, byte mode, Bytes... modes) {
@@ -58,14 +50,10 @@ public:
         return list->ToArray();
     }
 
+public:
     /// <summary>For Debug</summary>
     System::String^ ToString() override {
-        if (Modes == nullptr) {
-            return System::String::Format("{0}", Mode);
-        }
-        else {
-            return System::String::Format("({0}) ", Mode, System::String::Join(", ", Modes));
-        }
+        return System::String::Format("{0} ", System::String::Join(", ", NullableFlags));
     }
 
 };
