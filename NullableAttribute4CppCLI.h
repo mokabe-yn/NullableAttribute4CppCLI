@@ -1,62 +1,62 @@
 ﻿#pragma once
 
+// no-hint or forget: 0
+#define DISALLOWNULL  1
+#define ALLOWNULL     2
+#define NOTNULL  ::System::Runtime::CompilerServices::NullableAttribute(DISALLOWNULL)
+#define NULLABLE ::System::Runtime::CompilerServices::NullableAttribute(ALLOWNULL)
+
+#define NOTNULL_CONTEXT  ::System::Runtime::CompilerServices::NullableContextAttribute(DISALLOWNULL)
+#define NULLABLE_CONTEXT ::System::Runtime::CompilerServices::NullableContextAttribute(ALLOWNULL)
+
+
 namespace System {
 namespace Runtime {
 namespace CompilerServices {
 
-
-[AttributeUsage(AttributeTargets::Class | AttributeTargets::Event | AttributeTargets::Field |
-    AttributeTargets::GenericParameter | AttributeTargets::Module | AttributeTargets::Parameter |
-    AttributeTargets::Property | AttributeTargets::ReturnValue,
-    AllowMultiple = false)]
+[
+    ::System::AttributeUsageAttribute(
+        ::System::AttributeTargets::Class |
+        ::System::AttributeTargets::Event |
+        ::System::AttributeTargets::Field |
+        ::System::AttributeTargets::GenericParameter |
+        ::System::AttributeTargets::Module |
+        ::System::AttributeTargets::Parameter |
+        ::System::AttributeTargets::Property |
+        ::System::AttributeTargets::ReturnValue |
+        static_cast<::System::AttributeTargets>(0),
+        AllowMultiple = false)
+]
 /// <summary>
 /// <para>
-/// コンパイラが認識するNullableアノテーションをCCLIから使用できるように、
+/// コンパイラが認識するNullableアノテーションをCLIから使用できるように、
 /// 明示的に<see cref="NullableAttribute"/>を実装します。
 /// C#コンパイラから参照されたくないのでアクセスレベルをinternalにしている。
 /// </para>
 /// </summary>
-ref class NullableAttribute sealed : Attribute {
-private:
-    using byte = unsigned __int8;
-    using arraybyte = array<byte>^;
-    using listbyte = System::Collections::Generic::List<byte>^;
-
+ref class NullableAttribute sealed : ::System::Attribute {
 public:
-    const arraybyte NullableFlags;
-    NullableAttribute(byte flag) :
-        NullableFlags(gcnew array<byte>{flag}) { }
-
-    // C#コンパイラからのアクセス用
-    NullableAttribute(arraybyte flags) :
-        NullableFlags(flags) {}
-
-
-internal:
-    // C++コンパイラからのアクセス用
-    template<class... Bytes>
-    NullableAttribute(Bytes... flags) {
-        NullableFlags = ToManagedArray(gcnew System::Collections::Generic::List<byte>, modes...);
-    }
-
-private:
-    // Modesの生成用 Attributeを使うたびにgcnewを書かせたくないのでtemplate実装
-    template<class... Bytes>
-    arraybyte ToManagedArray(listbyte list, byte mode, Bytes... modes) {
-        list->Add(mode);
-        return ToManagedArray(list, modes...);
-    }
-    arraybyte ToManagedArray(listbyte list) {
-        return list->ToArray();
+    ::cli::array<::System::Byte, 1>^ const NullableFlags;
+    NullableAttribute(::cli::array<::System::Byte, 1>^ flags) :
+        NullableFlags(flags) { }
+    NullableAttribute(::System::Byte flag) :
+        NullableFlags(gcnew ::cli::array<::System::Byte, 1>(1)) {
+        NullableFlags[0] = flag;
     }
 
 public:
     /// <summary>For Debug</summary>
     System::String^ ToString() override {
-        return System::String::Format("{0} ", System::String::Join(", ", NullableFlags));
+        auto strs = gcnew ::cli::array<::System::String^>(this->NullableFlags->Length);
+        static auto fmt = gcnew ::System::String("{0}");
+        for (int i = 0; i < this->NullableFlags->Length; ++i) {
+            strs[i] = ::System::String::Format(fmt, this->NullableFlags[i]);
+        }
+        return System::String::Format("{0} ", ::System::String::Join(", ",
+            NullableFlags
+        ));
     }
-
 };
-}
-}
-}
+} // CompilerServices
+} // Runtime
+} // System

@@ -11,11 +11,11 @@ public ref class Class {
     using value = int;
     using ref = System::Object^;
 public:
-    [Nullable(2)]
+    [NULLABLE]
     property System::String^ Nullable {
         System::String^ get() { return nullptr; }
     }
-
+    [NOTNULL]
     property System::String^ NotNull {
         System::String^ get() { return nullptr; }
     }
