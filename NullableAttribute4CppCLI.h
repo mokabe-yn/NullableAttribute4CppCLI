@@ -28,7 +28,8 @@ namespace CompilerServices {
         ::System::AttributeTargets::Property |
         ::System::AttributeTargets::ReturnValue |
         static_cast<::System::AttributeTargets>(0),
-        AllowMultiple = false)
+        AllowMultiple = false,
+        Inherited = false)
 ]
 /// <summary>
 /// for nullable annotation.
@@ -37,7 +38,7 @@ namespace CompilerServices {
 /// <remarks>
 /// 0: oblivious, 1: notnull, 2: nullable.
 /// </remarks>
-public ref class NullableAttribute sealed : ::System::Attribute {
+ref class NullableAttribute sealed : ::System::Attribute {
 public:
     ::cli::array<::System::Byte, 1>^ NullableFlags;
     NullableAttribute(::cli::array<::System::Byte, 1>^ flags) :
@@ -48,11 +49,38 @@ public:
     }
     /// <summary>For Debug</summary>
     System::String^ ToString() override {
-        return ::System::String::Format("{0}", ::System::String::Join(", ",
-            NullableFlags
-        ));
+        return ::System::String::Join(", ", NullableFlags);
     }
 };
+
+[
+    ::System::AttributeUsageAttribute(
+        ::System::AttributeTargets::Class |
+        ::System::AttributeTargets::Delegate |
+        ::System::AttributeTargets::Interface |
+        ::System::AttributeTargets::Method |
+        ::System::AttributeTargets::Struct |
+        static_cast<::System::AttributeTargets>(0),
+        AllowMultiple = false,
+        Inherited = false)
+]
+/// <summary>
+/// for nullable annotation.
+/// see <seealso cref="https://github.com/dotnet/roslyn/blob/main/docs/features/nullable-metadata.md"/>.
+/// </summary>
+/// <remarks>
+/// 0: oblivious, 1: notnull, 2: nullable.
+/// </remarks>
+ref class NullableContextAttribute sealed : ::System::Attribute {
+public:
+    const ::System::Byte Flag;
+    NullableContextAttribute(::System::Byte flag) : Flag(flag) { }
+    /// <summary>For Debug</summary>
+    System::String^ ToString() override {
+        return ::System::String::Format("{0}", Flag);
+    }
+};
+
 } // CompilerServices
 } // Runtime
 } // System
