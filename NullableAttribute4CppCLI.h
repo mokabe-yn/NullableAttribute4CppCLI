@@ -12,7 +12,8 @@
 #define NULLABLE_ARRAY(...) ::System::Runtime::CompilerServices::NullableAttribute( \
     gcnew ::cli::array<::System::Byte, 1>{ __VA_ARGS__ })
 
-#if defined(BACKPORT_NET40) || 1
+#if !defined(_CLR_NETCORE)
+// need backport to .NET Framework 4.x
 
 namespace System {
 namespace Runtime {
