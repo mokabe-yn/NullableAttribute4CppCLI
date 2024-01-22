@@ -14,7 +14,7 @@ namespace NullableAttribute4CppCLIProbe {
                     Console.WriteLine(kv.Value);
                 }
             }
-            
+            var t = typeof(System.Runtime.CompilerServices.NullableAttribute);
         }
 
 

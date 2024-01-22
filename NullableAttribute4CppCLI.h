@@ -9,6 +9,9 @@
 #define NOTNULL_CONTEXT  ::System::Runtime::CompilerServices::NullableContextAttribute(DISALLOWNULL)
 #define NULLABLE_CONTEXT ::System::Runtime::CompilerServices::NullableContextAttribute(ALLOWNULL)
 
+#define NULLABLE_ARRAY(...) ::System::Runtime::CompilerServices::NullableAttribute( \
+    gcnew ::cli::array<::System::Byte, 1>{ __VA_ARGS__ })
+
 
 namespace System {
 namespace Runtime {
@@ -28,31 +31,24 @@ namespace CompilerServices {
         AllowMultiple = false)
 ]
 /// <summary>
-/// <para>
-/// コンパイラが認識するNullableアノテーションをCLIから使用できるように、
-/// 明示的に<see cref="NullableAttribute"/>を実装します。
-/// C#コンパイラから参照されたくないのでアクセスレベルをinternalにしている。
-/// </para>
+/// for nullable annotation.
+/// see <seealso cref="https://github.com/dotnet/roslyn/blob/main/docs/features/nullable-metadata.md"/>.
 /// </summary>
-ref class NullableAttribute sealed : ::System::Attribute {
+/// <remarks>
+/// 0: oblivious, 1: notnull, 2: nullable.
+/// </remarks>
+public ref class NullableAttribute sealed : ::System::Attribute {
 public:
-    ::cli::array<::System::Byte, 1>^ const NullableFlags;
+    ::cli::array<::System::Byte, 1>^ NullableFlags;
     NullableAttribute(::cli::array<::System::Byte, 1>^ flags) :
         NullableFlags(flags) { }
     NullableAttribute(::System::Byte flag) :
         NullableFlags(gcnew ::cli::array<::System::Byte, 1>(1)) {
         NullableFlags[0] = flag;
     }
-
-public:
     /// <summary>For Debug</summary>
     System::String^ ToString() override {
-        auto strs = gcnew ::cli::array<::System::String^>(this->NullableFlags->Length);
-        static auto fmt = gcnew ::System::String("{0}");
-        for (int i = 0; i < this->NullableFlags->Length; ++i) {
-            strs[i] = ::System::String::Format(fmt, this->NullableFlags[i]);
-        }
-        return System::String::Format("{0} ", ::System::String::Join(", ",
+        return ::System::String::Format("{0}", ::System::String::Join(", ",
             NullableFlags
         ));
     }

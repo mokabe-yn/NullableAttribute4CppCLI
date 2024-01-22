@@ -23,26 +23,32 @@ public:
         System::String^ get() { return nullptr; }
     }
 
-    property System::Action<ref>^ Multiple22 {
+    [NULLABLE_ARRAY(ALLOWNULL, ALLOWNULL)]
+        property System::Action<ref>^ Multiple22 {
         System::Action<ref>^ get() { return nullptr; }
     }
+    [NULLABLE_ARRAY(ALLOWNULL, ALLOWNULL, ALLOWNULL)]
     property System::Action<ref, ref>^ Multiple222 {
         System::Action<ref, ref>^ get() { return nullptr; }
     }
-    property System::Action<ref, ref>^ Multiple122 {
+    [NULLABLE_ARRAY(DISALLOWNULL, ALLOWNULL, ALLOWNULL)]
+        property System::Action<ref, ref>^ Multiple122 {
         System::Action<ref, ref>^ get() { return nullptr; }
     }
-    property System::Action<ref, ref>^ Multiple212 {
+    [NULLABLE_ARRAY(ALLOWNULL, DISALLOWNULL, ALLOWNULL)]
+        property System::Action<ref, ref>^ Multiple212 {
         System::Action<ref, ref>^ get() { return nullptr; }
     }
-    property System::Action<ref, ref>^ Multiple221 {
+    [NULLABLE_ARRAY(ALLOWNULL, ALLOWNULL, DISALLOWNULL)]
+        property System::Action<ref, ref>^ Multiple221 {
         System::Action<ref, ref>^ get() { return nullptr; }
     }
     property System::Action<ref, value>^ MultipleWithValueRefValue {
         System::Action<ref, value>^ get() { return nullptr; }
     }
 
-    ref Method(ref arg1, ref arg2) { return arg1; }
+    [returnvalue: NULLABLE]
+    ref Method([NULLABLE] ref arg1, [NULLABLE] ref arg2) { return arg1; }
     ref MethodWithOtherAnnotation(ref arg1, ref arg2) { return arg1; }
 };
 
