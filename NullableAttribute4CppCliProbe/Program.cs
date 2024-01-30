@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace NullableAttribute4CppCLIProbe {
+namespace NullableAttribute4CppCliProbe {
     class Program {
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
 
-            foreach(var kv in Probe<NullableAttribute4CppCLIUsage.Class>()) {
+            foreach(var kv in Probe<NullableAttribute4CppCliUsage.Class>()) {
                 Console.WriteLine(kv.Key.Name);
                 if (kv.Value is not null) {
                     Console.WriteLine(kv.Value);
                 }
             }
-            var t = typeof(System.Runtime.CompilerServices.NullableAttribute);
+            //var t = typeof(System.Runtime.CompilerServices.NullableAttribute);
         }
 
 
