@@ -5,8 +5,8 @@
 #if  defined(__cplusplus_cli)
 
 // no-hint or forget: 0
-#define DISALLOWNULL  1
-#define ALLOWNULL     2
+#define DISALLOWNULL static_cast<::System::Byte>(1)
+#define ALLOWNULL    static_cast<::System::Byte>(2)
 #define NOTNULL  ::System::Runtime::CompilerServices::\
     NullableAttribute(DISALLOWNULL)
 #define NULLABLE ::System::Runtime::CompilerServices::\
@@ -27,6 +27,16 @@ namespace System {
 namespace Runtime {
 namespace CompilerServices {
 
+/// <summary>
+/// <para>
+/// for nullable annotation.
+/// see roslyn document.
+/// <seealso href="https://github.com/dotnet/roslyn/blob/main/docs/features/nullable-metadata.md"/>
+/// </para>
+/// <para>
+/// 0: oblivious, 1: notnull, 2: nullable.
+/// </para>
+/// </summary>
 [
     ::System::AttributeUsageAttribute(
         ::System::AttributeTargets::Class |
@@ -40,13 +50,6 @@ namespace CompilerServices {
         static_cast<::System::AttributeTargets>(0),
         AllowMultiple = false, Inherited = false)
 ]
-/// <summary>
-/// for nullable annotation.
-/// see <seealso cref="https://github.com/dotnet/roslyn/blob/main/docs/features/nullable-metadata.md"/>.
-/// </summary>
-/// <remarks>
-/// 0: oblivious, 1: notnull, 2: nullable.
-/// </remarks>
 ref class NullableAttribute sealed : ::System::Attribute {
 public:
     ::cli::array<::System::Byte, 1>^ NullableFlags;
@@ -62,6 +65,16 @@ public:
     }
 };
 
+/// <summary>
+/// <para>
+/// for nullable context(set default value) annotation.
+/// see roslyn document.
+/// <seealso href="https://github.com/dotnet/roslyn/blob/main/docs/features/nullable-metadata.md"/>
+/// </para>
+/// <para>
+/// 0: oblivious, 1: notnull, 2: nullable.
+/// </para>
+/// </summary>
 [
     ::System::AttributeUsageAttribute(
         ::System::AttributeTargets::Class |
@@ -72,13 +85,6 @@ public:
         static_cast<::System::AttributeTargets>(0),
         AllowMultiple = false, Inherited = false)
 ]
-/// <summary>
-/// for nullable annotation.
-/// see <seealso cref="https://github.com/dotnet/roslyn/blob/main/docs/features/nullable-metadata.md"/>.
-/// </summary>
-/// <remarks>
-/// 0: oblivious, 1: notnull, 2: nullable.
-/// </remarks>
 ref class NullableContextAttribute sealed : ::System::Attribute {
 public:
     const ::System::Byte Flag;
