@@ -4,4 +4,4 @@
 
 // プリコンパイル済みヘッダーを使用している場合、コンパイルを成功させるにはこのソース ファイルが必要です。
 
-#include "NullableAttribute4CppCLI.h"
+#include "NullableAttribute4CppCli.hpp"
