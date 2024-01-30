@@ -16,3 +16,11 @@ C#8 で導入された Null非許容型の機能をC++/CLIで作成したプロ�
 便利に使えそうだったのでC++/CLI向けに1から書き直した。
 
 (RoslynのNullableAttribute実装)[https://github.com/dotnet/roslyn/blob/main/docs/features/nullable-metadata.md]
+
+# ライセンス
+Boost Software License.
+ソースコードのまま保持/再配布/コピペする場合、
+ライセンス表記を保持する必要がある。
+
+ソースコードの再配布をしない場合、
+コンパイルしてDLL(or exe)の形式にしてしまえばそれら一切の制限がなくなる。
