@@ -1,4 +1,8 @@
 ﻿#pragma once
+#ifndef NULLABLE_ATTRIBUTE_FOR_CPPCLI_HPP
+#define NULLABLE_ATTRIBUTE_FOR_CPPCLI_HPP
+
+#if  defined(__cplusplus_cli)
 
 // no-hint or forget: 0
 #define DISALLOWNULL  1
@@ -253,4 +257,6 @@ public:
 } // Diagnostics
 } // System
 
-#endif
+#endif// !defined(_CLR_NETCORE)
+#endif//  defined(__cplusplus_cli)
+#endif//NULLABLE_ATTRIBUTE_FOR_CPPCLI_HPP
