@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
-#include "NullableAttribute4CppCLI.h"
+#include "NullableAttribute4CppCli.hpp"
 
-namespace NullableAttribute4CppCLIUsage {
+namespace NullableAttribute4CppCliUsage {
 
 using NullableAttribute = System::Runtime::CompilerServices::NullableAttribute;
 

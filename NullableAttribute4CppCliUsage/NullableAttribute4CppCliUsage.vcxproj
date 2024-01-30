@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{7b6a851b-614f-4aff-9097-78625046cc72}</ProjectGuid>
-    <RootNamespace>NullableAttribute4CppCLIUsage</RootNamespace>
+    <RootNamespace>NullableAttribute4CppCliUsage</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <TargetFramework>net8.0</TargetFramework>
     <WindowsTargetPlatformMinVersion>8.0</WindowsTargetPlatformMinVersion>
@@ -172,7 +172,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\NullableAttribute4CppCLI.h" />
+    <ClInclude Include="..\NullableAttribute4CppCli.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>

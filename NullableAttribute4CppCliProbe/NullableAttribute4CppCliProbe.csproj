@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NullableAttribute4CppCLIUsage\NullableAttribute4CppCLIUsage.vcxproj" />
+    <ProjectReference Include="..\NullableAttribute4CppCliUsage\NullableAttribute4CppCliUsage.vcxproj" />
   </ItemGroup>
 
 </Project>
