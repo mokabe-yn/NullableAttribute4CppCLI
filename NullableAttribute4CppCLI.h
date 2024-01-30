@@ -3,14 +3,18 @@
 // no-hint or forget: 0
 #define DISALLOWNULL  1
 #define ALLOWNULL     2
-#define NOTNULL  ::System::Runtime::CompilerServices::NullableAttribute(DISALLOWNULL)
-#define NULLABLE ::System::Runtime::CompilerServices::NullableAttribute(ALLOWNULL)
+#define NOTNULL  ::System::Runtime::CompilerServices::\
+    NullableAttribute(DISALLOWNULL)
+#define NULLABLE ::System::Runtime::CompilerServices::\
+    NullableAttribute(ALLOWNULL)
 
-#define NOTNULL_CONTEXT  ::System::Runtime::CompilerServices::NullableContextAttribute(DISALLOWNULL)
-#define NULLABLE_CONTEXT ::System::Runtime::CompilerServices::NullableContextAttribute(ALLOWNULL)
+#define NOTNULL_CONTEXT  ::System::Runtime::CompilerServices::\
+    NullableContextAttribute(DISALLOWNULL)
+#define NULLABLE_CONTEXT ::System::Runtime::CompilerServices::\
+    NullableContextAttribute(ALLOWNULL)
 
-#define NULLABLE_ARRAY(...) ::System::Runtime::CompilerServices::NullableAttribute( \
-    gcnew ::cli::array<::System::Byte, 1>{ __VA_ARGS__ })
+#define NULLABLE_ARRAY(...) ::System::Runtime::CompilerServices::\
+    NullableAttribute(gcnew ::cli::array<::System::Byte, 1>{ __VA_ARGS__ })
 
 #if !defined(_CLR_NETCORE)
 // need backport to .NET Framework 4.x
