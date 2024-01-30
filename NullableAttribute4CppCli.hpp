@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef NULLABLE_ATTRIBUTE_FOR_CPPCLI_HPP
 #define NULLABLE_ATTRIBUTE_FOR_CPPCLI_HPP
 
@@ -57,7 +57,7 @@ public:
         NullableFlags[0] = flag;
     }
     /// <summary>For Debug</summary>
-    System::String^ ToString() override {
+    ::System::String^ ToString() override {
         return ::System::String::Join(", ", NullableFlags);
     }
 };
@@ -84,7 +84,7 @@ public:
     const ::System::Byte Flag;
     NullableContextAttribute(::System::Byte flag) : Flag(flag) { }
     /// <summary>For Debug</summary>
-    System::String^ ToString() override {
+    ::System::String^ ToString() override {
         return ::System::String::Format("{0}", Flag);
     }
 };
@@ -104,7 +104,7 @@ namespace CodeAnalysis {
         static_cast<::System::AttributeTargets>(0),
         Inherited = false)
 ]
-ref class AllowNullAttribute sealed : Attribute {};
+ref class AllowNullAttribute sealed : ::System::Attribute {};
 [
     ::System::AttributeUsageAttribute(
         ::System::AttributeTargets::Field |
@@ -113,17 +113,7 @@ ref class AllowNullAttribute sealed : Attribute {};
         static_cast<::System::AttributeTargets>(0),
         Inherited = false)
 ]
-ref class DisallowNullAttribute sealed : Attribute {};
-[
-    ::System::AttributeUsageAttribute(
-        ::System::AttributeTargets::Field |
-        ::System::AttributeTargets::Parameter |
-        ::System::AttributeTargets::Property |
-        ::System::AttributeTargets::ReturnValue |
-        static_cast<::System::AttributeTargets>(0),
-        Inherited = false)
-]
-ref class MaybeNullAttribute sealed : Attribute {};
+ref class DisallowNullAttribute sealed : ::System::Attribute {};
 [
     ::System::AttributeUsageAttribute(
         ::System::AttributeTargets::Field |
@@ -133,14 +123,24 @@ ref class MaybeNullAttribute sealed : Attribute {};
         static_cast<::System::AttributeTargets>(0),
         Inherited = false)
 ]
-ref class NotNullAttribute sealed : Attribute {};
+ref class MaybeNullAttribute sealed : ::System::Attribute {};
+[
+    ::System::AttributeUsageAttribute(
+        ::System::AttributeTargets::Field |
+        ::System::AttributeTargets::Parameter |
+        ::System::AttributeTargets::Property |
+        ::System::AttributeTargets::ReturnValue |
+        static_cast<::System::AttributeTargets>(0),
+        Inherited = false)
+]
+ref class NotNullAttribute sealed : ::System::Attribute {};
 [
     ::System::AttributeUsageAttribute(
         ::System::AttributeTargets::Parameter |
         static_cast<::System::AttributeTargets>(0),
         Inherited = false)
 ]
-ref class MaybeNullWhenAttribute sealed : Attribute {
+ref class MaybeNullWhenAttribute sealed : ::System::Attribute {
     bool const m_ReturnValue;
 public:
     property bool ReturnValue {
@@ -155,7 +155,7 @@ public:
         static_cast<::System::AttributeTargets>(0),
         Inherited = false)
 ]
-ref class NotNullWhenAttribute sealed : Attribute {
+ref class NotNullWhenAttribute sealed : ::System::Attribute {
     bool const m_ReturnValue;
 public:
     property bool ReturnValue {
@@ -172,7 +172,7 @@ public:
         static_cast<::System::AttributeTargets>(0),
         AllowMultiple = true, Inherited = false)
 ]
-ref class NotNullIfNotNullAttribute sealed : Attribute {
+ref class NotNullIfNotNullAttribute sealed : ::System::Attribute {
     ::System::String^ const m_ParameterName;
 public:
     property ::System::String^ ParameterName {
@@ -184,11 +184,35 @@ public:
 [
     ::System::AttributeUsageAttribute(
         ::System::AttributeTargets::Method |
+        static_cast<::System::AttributeTargets>(0),
+        AllowMultiple = true, Inherited = false)
+]
+ref class DoesNotReturnAttribute sealed : ::System::Attribute {};
+[
+    ::System::AttributeUsageAttribute(
+        ::System::AttributeTargets::Parameter |
+        static_cast<::System::AttributeTargets>(0),
+        AllowMultiple = true, Inherited = false)
+]
+ref class DoesNotReturnIfAttribute sealed : ::System::Attribute {
+    bool const m_ParameterValue;
+public:
+    property bool ParameterValue {
+        bool get() { return m_ParameterValue; }
+    }
+    DoesNotReturnIfAttribute(bool parameterValue)
+        : m_ParameterValue(parameterValue) {}
+};
+
+// .NET 5
+[
+    ::System::AttributeUsageAttribute(
+        ::System::AttributeTargets::Method |
         ::System::AttributeTargets::Property |
         static_cast<::System::AttributeTargets>(0),
         AllowMultiple = true, Inherited = false)
 ]
-ref class MemberNotNullAttribute sealed : Attribute {
+ref class MemberNotNullAttribute sealed : ::System::Attribute {
     ::cli::array<::System::String^>^ const m_Members;
 public:
     property ::cli::array<::System::String^>^ Members {
@@ -208,7 +232,7 @@ public:
         static_cast<::System::AttributeTargets>(0),
         AllowMultiple = true, Inherited = false)
 ]
-ref class MemberNotNullWhenAttribute sealed : Attribute {
+ref class MemberNotNullWhenAttribute sealed : ::System::Attribute {
     bool const m_ReturnValue;
     ::cli::array<::System::String^>^ const m_Members;
 public:
@@ -228,28 +252,6 @@ public:
         m_Members(gcnew ::cli::array<::System::String^, 1>(1)) {
         m_Members[0] = member;
     }
-};
-[
-    ::System::AttributeUsageAttribute(
-        ::System::AttributeTargets::Method |
-        static_cast<::System::AttributeTargets>(0),
-        AllowMultiple = true, Inherited = false)
-]
-ref class DoesNotReturnAttribute sealed : Attribute {};
-[
-    ::System::AttributeUsageAttribute(
-        ::System::AttributeTargets::Parameter |
-        static_cast<::System::AttributeTargets>(0),
-        AllowMultiple = true, Inherited = false)
-]
-ref class DoesNotReturnIfAttribute sealed : Attribute {
-    bool const m_ParameterValue;
-public:
-    property bool ParameterValue {
-        bool get() { return m_ParameterValue; }
-    }
-    DoesNotReturnIfAttribute(bool parameterValue)
-        : m_ParameterValue(parameterValue) {}
 };
 
 
